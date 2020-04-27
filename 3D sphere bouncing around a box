@@ -1,0 +1,50 @@
+class PVector {
+ 
+  float x;
+  float y;
+  float z;
+ 
+  PVector(float x_, float y_, float z_) {
+    x = x_;
+    y = y_;
+    z = z_;
+  }
+  void add(PVector v) {
+    y = y + v.y;
+    x = x + v.x;
+    z = z + v.z;
+  }
+}
+PVector location = new PVector(500,500,0);
+PVector velocity = new PVector(4,7.3,-5);
+void setup() {
+  size(1000,1000,P3D);
+  background(255);
+}
+
+void draw() {
+  background(0);
+  pushMatrix();
+  translate(500, 500, 0);
+  noFill();
+  stroke(0, 0, 255);
+  box(500);
+  popMatrix();
+  
+  pushMatrix();
+  translate(location.x, location.y, location.z);
+  noStroke();
+  fill(0,200,100);
+  sphere(50);
+  popMatrix();
+  location.add(velocity);
+  if ((location.x > 750) || (location.x < 250)) {
+    velocity.x = velocity.x * -1;
+  }
+  if ((location.y > 750) || (location.y < 250)) {
+    velocity.y = velocity.y * -1;
+  }
+  if ((location.z > 250) || (location.z < -250)) {
+    velocity.z = velocity.z * -1;
+  }
+}
